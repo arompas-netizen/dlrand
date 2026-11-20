@@ -14,6 +14,12 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
         python: ["3.9", "3.12", "3.13"]
+        exclude:
+          # ubuntu-latest is now Ubuntu 26.04, which has no Python 3.9 build for setup-python
+          - { os: ubuntu-latest, python: "3.9" }
+        include:
+          # run Python 3.9 on the older 24.04 image instead (revisit when GitHub retires it)
+          - { os: ubuntu-24.04, python: "3.9" }
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
