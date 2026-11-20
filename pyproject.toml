@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dlrand"
+version = "0.1.0"
+description = "Exact, reproducible random variate generation: C engines (xoshiro256++, DL Ziggurat, PTRS/BTRS, alias, rejection) with a Python interface"
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [{ name = "Alexander Rompas", email = "a.rompas@gmail.com" }]
+maintainers = [{ name = "Alexander Rompas", email = "a.rompas@gmail.com" }]
+license = "MIT"
+license-files = ["LICENSE"]
+keywords = ["random", "sampling", "DL distribution", "De Moivre-Laplace", "ziggurat", "rejection sampling"]
+classifiers = [
+  "Programming Language :: C",
+  "Programming Language :: Python :: 3",
+  "Topic :: Scientific/Engineering :: Mathematics",
+  "Operating System :: OS Independent",
+]
+
+[project.optional-dependencies]
+numpy = ["numpy"]
+examples = ["matplotlib", "numpy"]
+test = ["pytest"]
+
+[tool.setuptools]
+package-dir = { "" = "python" }
+packages = ["dlrand"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests/python"]
