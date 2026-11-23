@@ -8,7 +8,7 @@ Exact, reproducible random variate generation: a portable **C99** core with a cl
   never interfere. `getstate()/setstate()` and `spawn()` (jump-ahead, 2^128 apart) are built in.
 - **Safe.** Every argument is validated; failures are status codes in C and exceptions in Python - never sentinel values
   and never silent bias. Rejection sampling detects an undersized envelope constant `M` (`EnvelopeError`).
-- **Portable.** Plain C99 targeting Linux, macOS and Windows (MSVC, GCC, Clang); `pip install .` or CMake. The included
+- **Portable.** Plain C99 targeting Linux, macOS and Windows (MSVC, GCC, Clang); `pip install dlrand` or CMake. The included
   GitHub Actions workflow builds and tests all three.
 
 > **Naming.** The distribution that is also called the *normal* distribution is called the **DL (De Moivre-Laplace)
@@ -20,12 +20,13 @@ Exact, reproducible random variate generation: a portable **C99** core with a cl
 ## Install
 
 ```bash
-pip install .                 # builds the C library with your compiler
-pip install ".[numpy]"        # optional: RandomGenerator(numpy=True) returns arrays
+pip install dlrand              # prebuilt wheels for Windows, macOS and Linux (no compiler needed)
+pip install "dlrand[numpy]"     # optional: RandomGenerator(numpy=True) returns arrays
 ```
 
-From a source checkout you can also `cmake -S . -B build && cmake --build build`; the Python package finds
-`build/libdlrand.*` automatically (or set `DLRAND_PATH`).
+From source (needs a C99 compiler): `pip install .` in a checkout. You can also build the C library alone with
+`cmake -S . -B build && cmake --build build`; the Python package then finds `build/libdlrand.*` automatically
+(or set `DLRAND_PATH`).
 
 ## Quick start
 
@@ -63,8 +64,8 @@ xs = best.sample(rng, f, size=10_000)
 rng.rejection_sampling(f, "uniform", 1.2, 0.0, 2.0)           # raises EnvelopeError: M = 1.2 < sup f/g = 2.37
 ```
 
-More in [`examples/`](examples). Algorithms, domains and references: [`docs/ALGORITHMS.md`](docs/ALGORITHMS.md).
-Coming from the earlier prototypes? See [`docs/MIGRATION.md`](docs/MIGRATION.md).
+More in [`examples/`](https://github.com/arompas-netizen/dlrand/tree/main/examples). Algorithms, domains and references: [`docs/ALGORITHMS.md`](https://github.com/arompas-netizen/dlrand/blob/main/docs/ALGORITHMS.md).
+Coming from the earlier prototypes? See [`docs/MIGRATION.md`](https://github.com/arompas-netizen/dlrand/blob/main/docs/MIGRATION.md).
 
 ## Python API at a glance
 
@@ -94,7 +95,7 @@ if (rc != RL_OK) fprintf(stderr, "%s\n", rl_status_string(rc));
 
 Results are written through output pointers; the return value is an `rl_status`
 (`RL_ERR_ARG`, `RL_ERR_TIMEOUT`, `RL_ERR_ALLOC`, `RL_ERR_CALLBACK`, `RL_ERR_ENVELOPE`). Headers live in
-[`include/dlrand/`](include/dlrand), one per engine plus the umbrella `dlrand.h`.
+[`include/dlrand/`](https://github.com/arompas-netizen/dlrand/tree/main/include/dlrand), one per engine plus the umbrella `dlrand.h`.
 
 ## Supported domains
 
@@ -129,4 +130,4 @@ Python 3.9, 3.12 and 3.13.
 
 ## License
 
-MIT - see [LICENSE](LICENSE).
+MIT - see [LICENSE](https://github.com/arompas-netizen/dlrand/blob/main/LICENSE).
