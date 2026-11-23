@@ -49,3 +49,19 @@ packages = ["dlrand"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests/python"]
+
+[tool.cibuildwheel]
+# The library is loaded through ctypes, so one build per platform is enough: the wheel is tagged py3-none-<platform>.
+build = "cp312-*"
+test-requires = ["pytest"]
+test-command = "python -m pytest {project}/tests/python -q -p no:cacheprovider"
+build-verbosity = 1
+
+[tool.cibuildwheel.linux]
+archs = ["x86_64", "aarch64"]          # manylinux and musllinux
+
+[tool.cibuildwheel.macos]
+archs = ["x86_64", "arm64"]
+
+[tool.cibuildwheel.windows]
+archs = ["AMD64"]

@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  python:
+    name: Python ${{ matrix.python }} / ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python: ["3.9", "3.12", "3.13"]
+        exclude:
+          # ubuntu-latest is now Ubuntu 26.04, which has no Python 3.9 build for setup-python
+          - { os: ubuntu-latest, python: "3.9" }
+        include:
+          # run Python 3.9 on the older 24.04 image instead (revisit when GitHub retires it)
+          - { os: ubuntu-24.04, python: "3.9" }
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-python@v7.1.0
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install (builds the C library)
+        run: python -m pip install ".[test,numpy]"
+      - name: Test the installed package
+        working-directory: tests/python
+        run: python -m pytest -q
+
+  c-tests:
+    name: C tests (${{ matrix.name }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { name: "Linux, ASan+UBSan", os: ubuntu-latest, flags: "-DRL_SANITIZE=ON" }
+          - { name: "macOS", os: macos-latest, flags: "" }
+          - { name: "Windows, MSVC", os: windows-latest, flags: "" }
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - name: Configure
+        run: cmake -S . -B build ${{ matrix.flags }} -DCMAKE_BUILD_TYPE=Release
+      - name: Build
+        run: cmake --build build --config Release
+      - name: Test
+        run: ctest --test-dir build -C Release --output-on-failure

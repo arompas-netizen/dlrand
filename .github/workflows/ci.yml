@@ -21,8 +21,8 @@ jobs:
           # run Python 3.9 on the older 24.04 image instead (revisit when GitHub retires it)
           - { os: ubuntu-24.04, python: "3.9" }
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-python@v7.1.0
         with:
           python-version: ${{ matrix.python }}
       - name: Install (builds the C library)
@@ -42,7 +42,7 @@ jobs:
           - { name: "macOS", os: macos-latest, flags: "" }
           - { name: "Windows, MSVC", os: windows-latest, flags: "" }
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7.0.1
       - name: Configure
         run: cmake -S . -B build ${{ matrix.flags }} -DCMAKE_BUILD_TYPE=Release
       - name: Build
