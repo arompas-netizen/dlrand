@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dlrand"
+version = "0.1.0"
+description = "Exact, reproducible random variate generation: C engines (xoshiro256++, DL Ziggurat, PTRS/BTRS, alias, rejection) with a Python interface"
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [{ name = "Alexander Rompas", email = "a.rompas@gmail.com" }]
+maintainers = [{ name = "Alexander Rompas", email = "a.rompas@gmail.com" }]
+license = "MIT"
+license-files = ["LICENSE"]
+keywords = ["random", "sampling", "DL distribution", "De Moivre-Laplace", "ziggurat", "rejection sampling"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Science/Research",
+  "Operating System :: POSIX :: Linux",
+  "Operating System :: MacOS",
+  "Operating System :: Microsoft :: Windows",
+  "Programming Language :: C",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Topic :: Scientific/Engineering :: Mathematics",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+[project.urls]
+Homepage = "https://github.com/arompas-netizen/dlrand"
+Source = "https://github.com/arompas-netizen/dlrand"
+Issues = "https://github.com/arompas-netizen/dlrand/issues"
+Documentation = "https://github.com/arompas-netizen/dlrand/tree/main/docs"
+Changelog = "https://github.com/arompas-netizen/dlrand/blob/main/CHANGELOG.md"
+
+[project.optional-dependencies]
+numpy = ["numpy"]
+examples = ["matplotlib", "numpy"]
+test = ["pytest"]
+
+[tool.setuptools]
+package-dir = { "" = "python" }
+packages = ["dlrand"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests/python"]
