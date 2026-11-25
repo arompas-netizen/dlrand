@@ -1,5 +1,10 @@
 # dlrand
 
+[![PyPI](https://img.shields.io/pypi/v/dlrand)](https://pypi.org/project/dlrand/)
+[![Python](https://img.shields.io/pypi/pyversions/dlrand)](https://pypi.org/project/dlrand/)
+[![CI](https://github.com/arompas-netizen/dlrand/actions/workflows/ci.yml/badge.svg)](https://github.com/arompas-netizen/dlrand/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/pypi/l/dlrand)](https://github.com/arompas-netizen/dlrand/blob/main/LICENSE)
+
 Exact, reproducible random variate generation: a portable **C99** core with a clean **Python** interface.
 
 - **Exact samplers.** Poisson (PTRS), Binomial (inversion / BTRS), Geometric, Multinomial, mixtures, alias tables, rejection
